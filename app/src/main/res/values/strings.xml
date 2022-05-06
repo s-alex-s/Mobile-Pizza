@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mobile Pizza</string>
+
+    <string name="food_fragment_title">Меню</string>
+    <string name="cart_fragment_title">Корзина</string>
+    <string name="profile_fragment_title">Профиль</string>
 </resources>
