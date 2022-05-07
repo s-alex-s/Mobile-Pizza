@@ -12,7 +12,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/orange"
+        android:background="@color/white"
+        android:elevation="10dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_vertical"
-            app:srcCompat="@drawable/ic_baseline_local_pizza_24_white"
+            app:srcCompat="@drawable/ic_baseline_local_pizza_24_orange"
             tools:ignore="ImageContrastCheck"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="28dp" />

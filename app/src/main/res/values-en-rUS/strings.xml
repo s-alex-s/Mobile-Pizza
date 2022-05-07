@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mobile Pizza</string>
+    <string name="food_fragment_title">Menu</string>
+    <string name="cart_fragment_title">Cart</string>
+    <string name="profile_fragment_title">Profile</string>
+    <string name="logout">Logout</string>
+</resources>

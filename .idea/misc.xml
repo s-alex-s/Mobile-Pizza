@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3235" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/drawable/ic_baseline_local_pizza_200.xml" value="0.3235" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/drawable/ic_baseline_local_pizza_200_orange.xml" value="0.3235" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/drawable/ic_baseline_local_pizza_24.xml" value="0.2205" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/drawable/ic_baseline_local_pizza_24_white.xml" value="0.3235" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout-v21/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_start_logo.xml" value="0.33" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/custom_toolbar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/fragment_cart.xml" value="0.2368659420289855" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/fragment_contacts.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/fragment_food.xml" value="0.2368659420289855" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/fragment_profile.xml" value="0.2368659420289855" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/menu/bottom_nav_menu.xml" value="0.33" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
