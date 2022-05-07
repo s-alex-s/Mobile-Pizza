@@ -7,7 +7,7 @@
         android:title="@string/profile_fragment_title" />
     <item
         android:id="@+id/food_nav_item"
-        android:icon="@drawable/ic_baseline_local_pizza_24"
+        android:icon="@drawable/ic_baseline_local_pizza_24_orange"
         android:title="@string/food_fragment_title" />
     <item
         android:id="@+id/cart_nav_item"

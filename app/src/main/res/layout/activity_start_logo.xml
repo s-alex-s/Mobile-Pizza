@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FF8B0E"
     tools:context=".StartLogoActivity">
 
     <ImageView
@@ -14,5 +15,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_local_pizza_200" />
+        app:srcCompat="@drawable/ic_baseline_local_pizza_200_white" />
 </androidx.constraintlayout.widget.ConstraintLayout>
