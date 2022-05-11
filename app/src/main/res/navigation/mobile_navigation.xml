@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/food_nav_item">
+    app:startDestination="@id/cart_nav_item">
 
     <fragment
         android:id="@+id/food_nav_item"
@@ -20,4 +20,9 @@
         android:name="com.example.mobilepizza.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/contacts_nav_item"
+        android:name="com.example.mobilepizza.ui.contacts.ContactsFragment"
+        android:label="fragment_contacts"
+        tools:layout="@layout/fragment_contacts" />
 </navigation>

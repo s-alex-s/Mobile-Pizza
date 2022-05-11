@@ -13,4 +13,8 @@
         android:id="@+id/cart_nav_item"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="@string/cart_fragment_title" />
+    <item
+        android:id="@+id/contacts_nav_item"
+        android:icon="@drawable/ic_baseline_contact_support_24"
+        android:title="@string/contacts_fragment_title" />
 </menu>

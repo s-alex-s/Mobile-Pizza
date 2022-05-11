@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements FirebaseAuth.Auth
         root = findViewById(R.id.root_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.profile_nav_item, R.id.food_nav_item, R.id.cart_nav_item
+                R.id.profile_nav_item, R.id.food_nav_item, R.id.cart_nav_item,
+                R.id.contacts_nav_item
         ).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host);
         NavigationUI.setupWithNavController(navView, navController);
