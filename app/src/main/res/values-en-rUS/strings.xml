@@ -5,4 +5,5 @@
     <string name="cart_fragment_title">Cart</string>
     <string name="profile_fragment_title">Profile</string>
     <string name="logout">Logout</string>
+    <string name="contacts_fragment_title">Contacts</string>
 </resources>
