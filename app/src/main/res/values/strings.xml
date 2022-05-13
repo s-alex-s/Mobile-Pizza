@@ -6,5 +6,7 @@
     <string name="profile_fragment_title">Профиль</string>
     <string name="contacts_fragment_title">Контакты</string>
 
+    <string name="support_text">Связаться с поддержкой</string>
+
     <string name="logout">Выйти</string>
 </resources>
