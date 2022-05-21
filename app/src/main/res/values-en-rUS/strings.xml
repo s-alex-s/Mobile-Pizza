@@ -7,4 +7,6 @@
     <string name="logout">Logout</string>
     <string name="contacts_fragment_title">Contacts</string>
     <string name="support_text">Contact to support</string>
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="phone_sign_in">Sign in with phone number</string>
 </resources>

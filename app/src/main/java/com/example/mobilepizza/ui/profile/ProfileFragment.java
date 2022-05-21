@@ -1,5 +1,6 @@
 package com.example.mobilepizza.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.mobilepizza.AuthActivity;
 import com.example.mobilepizza.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -39,6 +41,9 @@ public class ProfileFragment extends Fragment {
                         googleSignInClient.signOut();
                 }
                 mAuth.signOut();
+
+                startActivity(new Intent(getContext(), AuthActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
             }
         });
 

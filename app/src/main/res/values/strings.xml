@@ -1,12 +1,19 @@
 <resources>
     <string name="app_name">Mobile Pizza</string>
 
+    <!-- Navigation -->
     <string name="food_fragment_title">Меню</string>
     <string name="cart_fragment_title">Корзина</string>
     <string name="profile_fragment_title">Профиль</string>
     <string name="contacts_fragment_title">Контакты</string>
 
+    <!-- Contacts Fragment -->
     <string name="support_text">Связаться с поддержкой</string>
 
+    <!-- Profile Fragment -->
     <string name="logout">Выйти</string>
+
+    <!-- Auth Activity -->
+    <string name="google_sign_in">Войти с помощью Google</string>
+    <string name="phone_sign_in">Войти с помощью номера телефона</string>
 </resources>
