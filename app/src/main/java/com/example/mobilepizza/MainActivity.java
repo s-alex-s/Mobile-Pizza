@@ -10,12 +10,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-    FirebaseUser currentUser;
 
     Toolbar toolbar;
 
@@ -36,7 +32,5 @@ public class MainActivity extends AppCompatActivity {
         ).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host);
         NavigationUI.setupWithNavController(navView, navController);
-
-        mAuth = FirebaseAuth.getInstance();
     }
 }

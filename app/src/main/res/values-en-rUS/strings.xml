@@ -8,5 +8,21 @@
     <string name="contacts_fragment_title">Contacts</string>
     <string name="support_text">Contact to support</string>
     <string name="google_sign_in">Sign in with Google</string>
-    <string name="phone_sign_in">Sign in with phone number</string>
+    <string name="phone_sign_in">Sign in with phone</string>
+    <string name="phone_number">Phone number</string>
+    <string name="phone_description">Please enter your phone number to continue</string>
+    <string name="continue_txt">Continue</string>
+    <string name="number_error">Incorrect phone number</string>
+    <string name="code_error">Invalid verification code</string>
+    <string name="verif_code">Verification code</string>
+    <string name="code_description">Please enter the confirmation code that was sent to</string>
+    <string name="code">Code</string>
+    <string name="didnt_get_code">Didn\'t get code? <b>Resend code</b></string>
+    <string name="verifying_code">Verifying code</string>
+    <string name="verifying_phone">Verifying phone number</string>
+    <string name="sent_code">Verification code sent</string>
+    <string name="verif_error">Verification error</string>
+    <string name="auto_conf">Automatic verification</string>
+    <string name="code_incorrect">Incorrect verification code</string>
+    <string name="please_wait">Please wait...</string>
 </resources>

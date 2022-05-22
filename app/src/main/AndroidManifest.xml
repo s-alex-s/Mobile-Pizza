@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobilePizza">
         <activity
+            android:name=".phone_auth.PhoneAuthActivity"
+            android:exported="false" />
+        <activity
             android:name=".AuthActivity"
             android:exported="false" />
         <activity
