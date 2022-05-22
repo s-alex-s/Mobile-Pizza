@@ -1,12 +1,37 @@
 <resources>
     <string name="app_name">Mobile Pizza</string>
 
+    <!-- Navigation -->
     <string name="food_fragment_title">Меню</string>
     <string name="cart_fragment_title">Корзина</string>
     <string name="profile_fragment_title">Профиль</string>
     <string name="contacts_fragment_title">Контакты</string>
 
+    <!-- Contacts Fragment -->
     <string name="support_text">Связаться с поддержкой</string>
 
+    <!-- Profile Fragment -->
     <string name="logout">Выйти</string>
+
+    <!-- Auth Activity -->
+    <string name="google_sign_in">Войти с помощью Google</string>
+    <string name="phone_sign_in">Войти с помощью телефона</string>
+
+    <!-- Phone Auth Activity -->
+    <string name="phone_number">Номер телефона</string>
+    <string name="phone_description">Пожалуйста введите свой номер телефона</string>
+    <string name="continue_txt">Продолжить</string>
+    <string name="number_error">Некорректный номер телефона</string>
+    <string name="code_error">Неверный код подтверждения</string>
+    <string name="code_incorrect">Некорректный код подтверждения</string>
+    <string name="verif_code">Код подтверждения</string>
+    <string name="code_description">Пожалуйста введите код подтверждения который был отправлен на</string>
+    <string name="code">Код</string>
+    <string name="didnt_get_code">Не получили код? <b>Отправить ещё раз</b></string>
+    <string name="verifying_phone">Подтверждение номера телефона</string>
+    <string name="verifying_code">Проверка кода</string>
+    <string name="sent_code">Код подтверждения отправлен</string>
+    <string name="verif_error">Ошибка подтверждения</string>
+    <string name="auto_conf">Автоматическое подтверждение</string>
+    <string name="please_wait">Пожалуйста подождите...</string>
 </resources>
