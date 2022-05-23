@@ -69,7 +69,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle(getString(R.string.please_wait));
-        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(false);
 
         before = findViewById(R.id.before_button);
         before.setOnClickListener(new View.OnClickListener() {
