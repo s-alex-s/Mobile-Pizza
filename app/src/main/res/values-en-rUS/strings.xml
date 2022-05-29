@@ -28,4 +28,10 @@
     <string name="profile_user_name">Name</string>
     <string name="profile_phone_number">Phone number</string>
     <string name="profile_order_history">Order history</string>
+    <string name="profile_email">Email</string>
+    <string name="add_phone_number">Add phone number</string>
+    <string name="add">Add</string>
+    <string name="edit_phone_number">Edit phone number</string>
+    <string name="add_phone_success">Phone number added</string>
+    <string name="error">Error</string>
 </resources>
