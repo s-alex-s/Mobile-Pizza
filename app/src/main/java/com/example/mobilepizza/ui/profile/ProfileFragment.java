@@ -54,7 +54,6 @@ public class ProfileFragment extends Fragment {
 
     // Phone profile elements
     ConstraintLayout phone_profile;
-    ImageView phone_profile_photo;
     TextView phone_name, phone_phone_number;
     Button phone_logout_button;
 
