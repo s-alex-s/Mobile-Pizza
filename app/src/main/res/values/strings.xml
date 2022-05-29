@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Mobile Pizza</string>
 
+    <string name="error">Ошибка</string>
+
     <!-- Navigation -->
     <string name="food_fragment_title">Меню</string>
     <string name="cart_fragment_title">Корзина</string>
@@ -11,6 +13,14 @@
     <string name="support_text">Связаться с поддержкой</string>
 
     <!-- Profile Fragment -->
+    <string name="profile_user_name">Имя</string>
+    <string name="profile_phone_number">Номер телефона</string>
+    <string name="profile_order_history">История заказов</string>
+    <string name="profile_email">Почта</string>
+    <string name="add_phone_number">Добавить номер телефона</string>
+    <string name="edit_phone_number">Изменить номер телефона</string>
+    <string name="add_phone_success">Номер телефона добавлен</string>
+    <string name="add">Добавить</string>
     <string name="logout">Выйти</string>
 
     <!-- Auth Activity -->
