@@ -34,4 +34,10 @@
     <string name="edit_phone_number">Edit phone number</string>
     <string name="add_phone_success">Phone number added</string>
     <string name="error">Error</string>
+    <string name="add_address">Add delivery address</string>
+    <string name="add_address_success">Delivery address added</string>
+    <string name="profile_address">Delivery address</string>
+    <string name="address_incorrect">Enter delivery address</string>
+    <string name="add_phone_name">Enter your name</string>
+    <string name="add_phone_name_success">Name added</string>
 </resources>
