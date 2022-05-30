@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "898314820232",
+    "firebase_url": "https://mobile-pizza-b47e0-default-rtdb.firebaseio.com",
     "project_id": "mobile-pizza-b47e0",
     "storage_bucket": "mobile-pizza-b47e0.appspot.com"
   },
@@ -13,6 +14,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "898314820232-e2vdn9a6fdei31iltoepurp8tv93gd8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobilepizza",
+            "certificate_hash": "018ebbe0dbcb8bc6df915a320ba0e47796150e6a"
+          }
+        },
+        {
+          "client_id": "898314820232-jnklv4rk80tq8ufmis4971jh62k363rt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobilepizza",
+            "certificate_hash": "25b218a40db042aba55c6c62e98d90921790d6e7"
+          }
+        },
         {
           "client_id": "898314820232-orkrild8ke50li823h38u0ojoba89t9h.apps.googleusercontent.com",
           "client_type": 3
