@@ -177,6 +177,15 @@ public class ProfileFragment extends Fragment {
         dialog.setContentView(R.layout.get_phone_number);
 
         EditText editText = dialog.findViewById(R.id.editTextPhone_dialog);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        int count = 0;
+        for (int i = google_phone.getText().toString().length() - 1; count < 10; i--) {
+            stringBuilder.append(google_phone.getText().toString().charAt(i));
+            count++;
+        }
+
+        editText.setText(stringBuilder.reverse().toString());
         CountryCodePicker ccp = dialog.findViewById(R.id.code_picker_dialog);
         Button button = dialog.findViewById(R.id.add_phone_number_dialog);
 
