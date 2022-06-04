@@ -25,6 +25,7 @@
     <string name="auto_conf">Automatic verification</string>
     <string name="code_incorrect">Incorrect verification code</string>
     <string name="please_wait">Please wait...</string>
+    <string name="pizza_title">Pizza</string>
     <string name="profile_user_name">Name</string>
     <string name="profile_phone_number">Phone number</string>
     <string name="profile_order_history">Order history</string>
