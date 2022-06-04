@@ -8,10 +8,19 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobilepizza.Foodclasses.Pizza;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    private ArrayList<Pizza> pizzaList;
+    private RecyclerView recyclerView;
 
     Toolbar toolbar;
 
@@ -19,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        recyclerView = findViewById(R.id.recycleView2);
+        pizzaList = new ArrayList<Pizza>();
+
+        setUserinfo();
+        setAdapter();
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -32,5 +46,22 @@ public class MainActivity extends AppCompatActivity {
         ).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host);
         NavigationUI.setupWithNavController(navView, navController);
+    }
+
+    private void setAdapter() {
+        recycleAdapter adapter = new recycleAdapter(pizzaList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void setUserinfo() {
+        Pizza pizza1 = new Pizza();
+        pizza1.setName("mozarella");
+        pizza1.setName("Сырные палочки с песто");
+
+        pizzaList.add(pizza1);
+
     }
 }

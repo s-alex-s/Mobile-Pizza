@@ -25,4 +25,5 @@
     <string name="auto_conf">Automatic verification</string>
     <string name="code_incorrect">Incorrect verification code</string>
     <string name="please_wait">Please wait...</string>
+    <string name="pizza_title">Pizza</string>
 </resources>
