@@ -26,4 +26,19 @@
     <string name="code_incorrect">Incorrect verification code</string>
     <string name="please_wait">Please wait...</string>
     <string name="pizza_title">Pizza</string>
+    <string name="profile_user_name">Name</string>
+    <string name="profile_phone_number">Phone number</string>
+    <string name="profile_order_history">Order history</string>
+    <string name="profile_email">Email</string>
+    <string name="add_phone_number">Add phone number</string>
+    <string name="add">Add</string>
+    <string name="edit_phone_number">Edit phone number</string>
+    <string name="add_phone_success">Phone number added</string>
+    <string name="error">Error</string>
+    <string name="add_address">Add delivery address</string>
+    <string name="add_address_success">Delivery address added</string>
+    <string name="profile_address">Delivery address</string>
+    <string name="address_incorrect">Enter delivery address</string>
+    <string name="add_phone_name">Enter your name</string>
+    <string name="add_phone_name_success">Name added</string>
 </resources>
