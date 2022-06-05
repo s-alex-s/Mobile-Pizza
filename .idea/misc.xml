@@ -26,18 +26,10 @@
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/get_name.xml" value="0.365625" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/get_phone_number.xml" value="0.365625" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/menu/bottom_nav_menu.xml" value="0.33" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Mobile-Pizza/app/src/main/res/layout/activity_auth.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Mobile-Pizza/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Mobile-Pizza/app/src/main/res/layout/activity_main_foodlist.xml" value="0.365625" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Mobile-Pizza/app/src/main/res/layout/activity_start_logo.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Mobile-Pizza/app/src/main/res/layout/foodlist_items.xml" value="0.33" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Mobile-Pizza/app/src/main/res/layout/fragment_food.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Mobile-Pizza/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Mobile-Pizza/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3185" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
