@@ -40,4 +40,5 @@
     <string name="address_incorrect">Enter delivery address</string>
     <string name="add_phone_name">Enter your name</string>
     <string name="add_phone_name_success">Name added</string>
+    <string name="pizza_title">Pizza</string>
 </resources>
