@@ -1,6 +1,6 @@
 package com.example.mobilepizza;
 
-class Food {
+public class Food {
     private String description_en;
     private String description_ru;
     private String name_en;

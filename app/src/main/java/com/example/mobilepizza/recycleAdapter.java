@@ -1,5 +1,7 @@
 package com.example.mobilepizza;
 
+import com.example.mobilepizza.Food;
+
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
