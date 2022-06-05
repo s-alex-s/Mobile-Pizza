@@ -1,6 +1,6 @@
 package com.example.mobilepizza;
 
-public class Food {
+public class FoodClass {
     private String description_en;
     private String description_ru;
     private String name_en;
@@ -9,9 +9,9 @@ public class Food {
     private String price;
     private int img;
 
-    public Food() {}
+    public FoodClass() {}
 
-    public Food(String description, String name, String key, String price, int img) {
+    public FoodClass(String description, String name, String key, String price, int img) {
         this.description_en = description;
         this.description_ru = description;
         this.name_en = name;

@@ -11,14 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mobilepizza.Food;
+import com.example.mobilepizza.FoodClass;
 import com.example.mobilepizza.R;
 import com.example.mobilepizza.recycleAdapter;
 
 import java.util.ArrayList;
 
 public class FoodFragment extends Fragment {
-    private ArrayList<Food> foodList;
+    private ArrayList<FoodClass> foodList;
     private RecyclerView recyclerView;
 
     @Override
@@ -44,12 +44,12 @@ public class FoodFragment extends Fragment {
     }
 
     private void setUserinfo() {
-        Food pizza1 = new Food();
+        FoodClass pizza1 = new FoodClass();
         pizza1.setName_ru("Сырные палочки с песто");
         pizza1.setName_en("Pesto cheese sticks");
         pizza1.setPrice("2000");
 
-        Food pizza2 = new Food();
+        FoodClass pizza2 = new FoodClass();
         pizza2.setName_en("Pepperoni");
         pizza2.setName_ru("Пепперони");
         pizza2.setPrice("1000");

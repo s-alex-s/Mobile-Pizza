@@ -1,7 +1,5 @@
 package com.example.mobilepizza;
 
-import com.example.mobilepizza.Food;
-
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +14,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class recycleAdapter extends RecyclerView.Adapter<recycleAdapter.MyViewHolder> {
-    private final ArrayList<Food> foodList;
+    private final ArrayList<FoodClass> foodList;
 
-    public recycleAdapter(ArrayList<Food> foodList) {
+    public recycleAdapter(ArrayList<FoodClass> foodList) {
         this.foodList = foodList;
     }
 
