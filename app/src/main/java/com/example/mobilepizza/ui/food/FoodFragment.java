@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mobilepizza.FoodClass;
+import com.example.mobilepizza.classes.FoodClass;
 import com.example.mobilepizza.R;
-import com.example.mobilepizza.recycleAdapter;
+import com.example.mobilepizza.adapters.PizzaRecycleAdapter;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class FoodFragment extends Fragment {
     }
 
     private void setAdapter(View view) {
-        recycleAdapter adapter = new recycleAdapter(foodList);
+        PizzaRecycleAdapter adapter = new PizzaRecycleAdapter(foodList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext(),
                 LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);

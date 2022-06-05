@@ -1,4 +1,4 @@
-package com.example.mobilepizza;
+package com.example.mobilepizza.classes;
 
 public class FoodClass {
     private String description_en;

@@ -1,4 +1,4 @@
-package com.example.mobilepizza;
+package com.example.mobilepizza.adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -10,22 +10,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobilepizza.classes.FoodClass;
+import com.example.mobilepizza.R;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class recycleAdapter extends RecyclerView.Adapter<recycleAdapter.MyViewHolder> {
+public class PizzaRecycleAdapter extends RecyclerView.Adapter<PizzaRecycleAdapter.MyViewHolder> {
     private final ArrayList<FoodClass> foodList;
 
-    public recycleAdapter(ArrayList<FoodClass> foodList) {
+    public PizzaRecycleAdapter(ArrayList<FoodClass> foodList) {
         this.foodList = foodList;
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name1Txt;
 
         Button name;
-        public MyViewHolder(final View view){
+        public MyViewHolder(final View view) {
             super(view);
 
             name1Txt = view.findViewById(R.id.textView10);
@@ -36,14 +39,14 @@ public class recycleAdapter extends RecyclerView.Adapter<recycleAdapter.MyViewHo
 
     @NonNull
     @Override
-    public recycleAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PizzaRecycleAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.foodlist_items, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull recycleAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PizzaRecycleAdapter.MyViewHolder holder, int position) {
         String name = "";
         if (Locale.getDefault().getLanguage().equals("ru")) {
             name = foodList.get(position).getName_ru();
