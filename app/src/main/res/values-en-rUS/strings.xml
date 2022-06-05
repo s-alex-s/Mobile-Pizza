@@ -40,4 +40,10 @@
     <string name="address_incorrect">Enter delivery address</string>
     <string name="add_phone_name">Enter your name</string>
     <string name="add_phone_name_success">Name added</string>
+    <string name="small_pizza">Small</string>
+    <string name="medium_pizza">Medium</string>
+    <string name="big_pizza">Big</string>
+    <string name="traditional_dough">Traditional</string>
+    <string name="thin_dough">Thin</string>
+    <string name="add_to_cart">Add to cart</string>
 </resources>
