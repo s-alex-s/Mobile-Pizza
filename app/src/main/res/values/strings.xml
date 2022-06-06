@@ -12,6 +12,14 @@
     <!-- Contacts Fragment -->
     <string name="support_text">Связаться с поддержкой</string>
 
+    <!-- Food Fragment -->
+    <string name="small_pizza">Маленькая</string>
+    <string name="medium_pizza">Средняя</string>
+    <string name="big_pizza">Большая</string>
+    <string name="traditional_dough">Традиционное</string>
+    <string name="thin_dough">Тонкое</string>
+    <string name="add_to_cart">В корзину</string>
+
     <!-- Profile Fragment -->
     <string name="profile_user_name">Имя</string>
     <string name="profile_phone_number">Номер телефона</string>
