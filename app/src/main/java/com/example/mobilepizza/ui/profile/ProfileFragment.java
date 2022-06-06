@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.mobilepizza.AuthActivity;
 import com.example.mobilepizza.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -34,7 +35,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
-import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
 
@@ -227,7 +227,10 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-            Picasso.get().load(profile.getPhotoUrl()).into(google_profile_photo);
+            Glide.with(view.getContext())
+                    .load(profile.getPhotoUrl())
+                    .circleCrop()
+                    .into(google_profile_photo);
 
             google_name.setText(profile.getDisplayName());
 

@@ -2,6 +2,9 @@
     <string name="app_name">Mobile Pizza</string>
 
     <string name="error">Ошибка</string>
+    <string name="currency">тг</string>
+    <string name="size">см</string>
+    <string name="dough">тесто</string>
 
     <!-- Navigation -->
     <string name="food_fragment_title">Меню</string>
@@ -59,5 +62,8 @@
     <string name="auto_conf">Автоматическое подтверждение</string>
     <string name="please_wait">Пожалуйста подождите...</string>
 
+    <!-- Food Fragment -->
     <string name="pizza_title">Пицца</string>
+    <string name="snacks_title">Закуски</string>
+    <string name="drinks_title">Напитки</string>
 </resources>

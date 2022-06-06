@@ -14,6 +14,7 @@
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/drawable/radio_selected.xml" value="0.3365" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/drawable/radio_selector.xml" value="0.3365" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/drawable/round_corner.xml" value="0.3635" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout-v21/activity_food.xml" value="0.18697916666666667" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout-v21/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_auth.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_food.xml" value="0.33" />
@@ -25,7 +26,7 @@
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/foodlist_items.xml" value="0.33" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/fragment_cart.xml" value="0.2368659420289855" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/fragment_contacts.xml" value="0.33" />
-        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/fragment_food.xml" value="0.2368659420289855" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/fragment_food.xml" value="0.33" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/fragment_map.xml" value="0.3632246376811594" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/get_delivery_address.xml" value="0.365625" />

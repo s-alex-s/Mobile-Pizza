@@ -47,4 +47,9 @@
     <string name="thin_dough">Thin</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="pizza_title">Pizza</string>
+    <string name="currency">tg</string>
+    <string name="snacks_title">Snacks</string>
+    <string name="drinks_title">Drinks</string>
+    <string name="size">cm</string>
+    <string name="dough">dough</string>
 </resources>

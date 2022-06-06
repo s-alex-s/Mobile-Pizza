@@ -1,17 +1,19 @@
 package com.example.mobilepizza.classes;
 
-public class FoodClass {
+import java.io.Serializable;
+
+public class Food implements Serializable {
     private String description_en;
     private String description_ru;
     private String name_en;
     private String name_ru;
     private String key;
     private String price;
-    private int img;
+    private String img;
 
-    public FoodClass() {}
+    public Food() {}
 
-    public FoodClass(String description, String name, String key, String price, int img) {
+    public Food(String description, String name, String key, String price, String img) {
         this.description_en = description;
         this.description_ru = description;
         this.name_en = name;
@@ -69,11 +71,11 @@ public class FoodClass {
         this.price = price;
     }
 
-    public int getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 }

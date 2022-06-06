@@ -1,60 +1,85 @@
 package com.example.mobilepizza.ui.food;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.Toast;
 
-import com.example.mobilepizza.classes.FoodClass;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mobilepizza.R;
 import com.example.mobilepizza.adapters.PizzaRecycleAdapter;
+import com.example.mobilepizza.classes.Food;
+import com.example.mobilepizza.classes.FoodClasses.Pizza;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class FoodFragment extends Fragment {
-    private ArrayList<FoodClass> foodList;
-    private RecyclerView recyclerView;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = database.getReference();
+
+    ArrayList<Food> pizzaList;
+    RecyclerView pizzaRecyclerView;
+
+    RecyclerView.LayoutManager layoutManager;
+
+    ProgressBar progressBar;
+    ScrollView root_food;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_food, container, false);
-        recyclerView = view.findViewById(R.id.recycleView2);
-        foodList = new ArrayList<>();
 
-        setUserinfo();
-        setAdapter(view);
+        View view = inflater.inflate(R.layout.fragment_food, container, false);
+
+        progressBar = view.findViewById(R.id.progressBar3);
+        root_food = view.findViewById(R.id.root_food);
+
+        layoutManager = new LinearLayoutManager(view.getContext(),
+                LinearLayoutManager.HORIZONTAL, false);
+
+        pizzaRecyclerView = view.findViewById(R.id.pizzaRecycleView);
+        pizzaList = new ArrayList<>();
+
+        setLists();
 
         return view;
     }
 
-    private void setAdapter(View view) {
-        PizzaRecycleAdapter adapter = new PizzaRecycleAdapter(foodList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext(),
-                LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-    }
+    private void setLists() {
+        PizzaRecycleAdapter adapter = new PizzaRecycleAdapter(pizzaList);
+        pizzaRecyclerView.setLayoutManager(layoutManager);
+        pizzaRecyclerView.setAdapter(adapter);
 
-    private void setUserinfo() {
-        FoodClass pizza1 = new FoodClass();
-        pizza1.setName_ru("Сырные палочки с песто");
-        pizza1.setName_en("Pesto cheese sticks");
-        pizza1.setPrice("2000");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pizzaList.clear();
 
-        FoodClass pizza2 = new FoodClass();
-        pizza2.setName_en("Pepperoni");
-        pizza2.setName_ru("Пепперони");
-        pizza2.setPrice("1000");
+                for (DataSnapshot data : snapshot.child("pizza").getChildren()) {
+                    pizzaList.add(data.getValue(Pizza.class));
+                }
 
-        foodList.add(pizza1);
-        foodList.add(pizza2);
+                progressBar.setVisibility(View.GONE);
+                root_food.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
