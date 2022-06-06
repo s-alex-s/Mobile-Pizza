@@ -46,4 +46,5 @@
     <string name="traditional_dough">Traditional</string>
     <string name="thin_dough">Thin</string>
     <string name="add_to_cart">Add to cart</string>
+    <string name="pizza_title">Pizza</string>
 </resources>

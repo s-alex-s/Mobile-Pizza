@@ -58,4 +58,6 @@
     <string name="verif_error">Ошибка подтверждения</string>
     <string name="auto_conf">Автоматическое подтверждение</string>
     <string name="please_wait">Пожалуйста подождите...</string>
+
+    <string name="pizza_title">Пицца</string>
 </resources>
