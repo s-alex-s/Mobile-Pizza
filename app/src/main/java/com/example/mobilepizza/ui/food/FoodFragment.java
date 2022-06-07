@@ -14,9 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilepizza.R;
+import com.example.mobilepizza.adapters.DrinksRecycleAdapter;
 import com.example.mobilepizza.adapters.PizzaRecycleAdapter;
-import com.example.mobilepizza.classes.Food;
+import com.example.mobilepizza.adapters.SnacksRecycleAdapter;
+import com.example.mobilepizza.classes.FoodClasses.Drinks;
 import com.example.mobilepizza.classes.FoodClasses.Pizza;
+import com.example.mobilepizza.classes.FoodClasses.Snacks;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,10 +33,14 @@ public class FoodFragment extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = database.getReference();
 
-    ArrayList<Food> pizzaList;
+    ArrayList<Pizza> pizzaList;
     RecyclerView pizzaRecyclerView;
 
-    RecyclerView.LayoutManager layoutManager;
+    ArrayList<Snacks> snacksList;
+    RecyclerView snacksRecyclerView;
+
+    ArrayList<Drinks> drinksList;
+    RecyclerView drinksRecyclerView;
 
     ProgressBar progressBar;
     ScrollView root_food;
@@ -47,29 +54,50 @@ public class FoodFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar3);
         root_food = view.findViewById(R.id.root_food);
 
-        layoutManager = new LinearLayoutManager(view.getContext(),
-                LinearLayoutManager.HORIZONTAL, false);
-
         pizzaRecyclerView = view.findViewById(R.id.pizzaRecycleView);
         pizzaList = new ArrayList<>();
 
-        setLists();
+        snacksRecyclerView = view.findViewById(R.id.snacksRecycleView);
+        snacksList = new ArrayList<>();
+
+        drinksRecyclerView = view.findViewById(R.id.drinksRecycleView);
+        drinksList = new ArrayList<>();
+
+        setLists(view);
 
         return view;
     }
 
-    private void setLists() {
+    private void setLists(View view) {
         PizzaRecycleAdapter adapter = new PizzaRecycleAdapter(pizzaList);
-        pizzaRecyclerView.setLayoutManager(layoutManager);
+        pizzaRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
         pizzaRecyclerView.setAdapter(adapter);
+
+        SnacksRecycleAdapter snacksAdapter = new SnacksRecycleAdapter(snacksList);
+        snacksRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+        snacksRecyclerView.setAdapter(snacksAdapter);
+
+        DrinksRecycleAdapter drinksAdapter = new DrinksRecycleAdapter(drinksList);
+        drinksRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+        drinksRecyclerView.setAdapter(drinksAdapter);
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                pizzaList.clear();
 
                 for (DataSnapshot data : snapshot.child("pizza").getChildren()) {
                     pizzaList.add(data.getValue(Pizza.class));
+                }
+
+                for (DataSnapshot data : snapshot.child("snacks").getChildren()) {
+                    snacksList.add(data.getValue(Snacks.class));
+                }
+
+                for (DataSnapshot data : snapshot.child("drinks").getChildren()) {
+                    drinksList.add(data.getValue(Drinks.class));
                 }
 
                 progressBar.setVisibility(View.GONE);

@@ -1,5 +1,6 @@
 package com.example.mobilepizza;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.mobilepizza.classes.Food;
 import com.example.mobilepizza.classes.FoodClasses.Drinks;
 import com.example.mobilepizza.classes.FoodClasses.Pizza;
 import com.example.mobilepizza.classes.FoodClasses.Snacks;
@@ -45,6 +47,14 @@ public class FoodActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar5);
 
+        food_name = findViewById(R.id.foodactivity_name);
+        food_description = findViewById(R.id.foodactivity_desc);
+        food_settings = findViewById(R.id.foodactivity_settings);
+        dough = findViewById(R.id.pizzaactivity_dough);
+        size = findViewById(R.id.pizzaactivity_size);
+        imageView = findViewById(R.id.foodactivity_image);
+        button = findViewById(R.id.add_cart_button);
+
         arguments = getIntent().getExtras();
         if (arguments.get("type").equals("pizza")) {
             setPizzaView((Pizza) arguments.get("food"));
@@ -55,33 +65,43 @@ public class FoodActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void setSnacksView(Snacks food) {
+        setFoodInfo(food);
 
+        food_settings.setVisibility(View.GONE);
+        dough.setVisibility(View.GONE);
+        size.setVisibility(View.GONE);
+
+        button.setText(getString(R.string.add_to_cart) + " " + food.getPrice() + "₸");
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
+    @SuppressLint("SetTextI18n")
     private void setDrinksView(Drinks food) {
+        setFoodInfo(food);
 
+        food_settings.setVisibility(View.GONE);
+        dough.setVisibility(View.GONE);
+        size.setVisibility(View.GONE);
+
+        button.setText(getString(R.string.add_to_cart) + " " + food.getPrice() + "₸");
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
+    @SuppressLint("SetTextI18n")
     public void setPizzaView(Pizza food) {
-        imageView = findViewById(R.id.foodactivity_image);
-        storageReference.child(food.getImg()).getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Glide.with(FoodActivity.this)
-                                .load(uri)
-                                .into(imageView);
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("fbstorage", e.getMessage());
-                    }
-                });
-
-        dough = findViewById(R.id.pizzaactivity_dough);
         dough.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -98,7 +118,6 @@ public class FoodActivity extends AppCompatActivity {
             }
         });
 
-        size = findViewById(R.id.pizzaactivity_size);
         size.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -115,19 +134,9 @@ public class FoodActivity extends AppCompatActivity {
             }
         });
 
-        food_name = findViewById(R.id.foodactivity_name);
-        food_description = findViewById(R.id.foodactivity_desc);
-        food_settings = findViewById(R.id.foodactivity_settings);
+        setFoodInfo(food);
 
-        if (Locale.getDefault().getLanguage().equals("ru")) {
-            food_name.setText(food.getName_ru());
-            food_description.setText(food.getDescription_ru());
-        } else if (Locale.getDefault().getLanguage().equals("en")) {
-            food_name.setText(food.getName_en());
-            food_description.setText(food.getDescription_en());
-        }
-
-        button = findViewById(R.id.add_cart_button);
+        button.setText(getString(R.string.add_to_cart) + " " + food.getPrice_medium() + "₸");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +146,46 @@ public class FoodActivity extends AppCompatActivity {
         updatePizzaSettings(food);
     }
 
+    public void setFoodInfo(Food food) {
+        storageReference.child(food.getImg()).getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Glide.with(FoodActivity.this)
+                                .load(uri)
+                                .into(imageView);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("fbstorage", e.getMessage());
+                    }
+                });
+
+        if (Locale.getDefault().getLanguage().equals("ru")) {
+            food_name.setText(food.getName_ru());
+            food_description.setText(food.getDescription_ru());
+        } else if (Locale.getDefault().getLanguage().equals("en")) {
+            food_name.setText(food.getName_en());
+            food_description.setText(food.getDescription_en());
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
     public void updatePizzaSettings(Pizza food) {
+        switch (food.getSize()) {
+            case "25":
+                button.setText(getString(R.string.add_to_cart) + " " + food.getPrice_small() + "₸");
+                break;
+            case "30":
+                button.setText(getString(R.string.add_to_cart) + " " + food.getPrice_medium() + "₸");
+                break;
+            case "35":
+                button.setText(getString(R.string.add_to_cart) + " " + food.getPrice_big() + "₸");
+                break;
+        }
+
         StringBuilder stringBuilder = new StringBuilder();
 
         switch (food.getSize()) {

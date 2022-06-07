@@ -45,11 +45,11 @@
     <string name="big_pizza">Big</string>
     <string name="traditional_dough">Traditional</string>
     <string name="thin_dough">Thin</string>
-    <string name="add_to_cart">Add to cart</string>
+    <string name="add_to_cart">Add to cart for</string>
     <string name="pizza_title">Pizza</string>
-    <string name="currency">tg</string>
     <string name="snacks_title">Snacks</string>
     <string name="drinks_title">Drinks</string>
     <string name="size">cm</string>
     <string name="dough">dough</string>
+    <string name="from">from</string>
 </resources>

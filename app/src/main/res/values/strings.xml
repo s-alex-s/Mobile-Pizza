@@ -2,9 +2,9 @@
     <string name="app_name">Mobile Pizza</string>
 
     <string name="error">Ошибка</string>
-    <string name="currency">тг</string>
     <string name="size">см</string>
     <string name="dough">тесто</string>
+    <string name="from">от</string>
 
     <!-- Navigation -->
     <string name="food_fragment_title">Меню</string>
@@ -15,13 +15,13 @@
     <!-- Contacts Fragment -->
     <string name="support_text">Связаться с поддержкой</string>
 
-    <!-- Food Fragment -->
+    <!-- Food Activity -->
     <string name="small_pizza">Маленькая</string>
     <string name="medium_pizza">Средняя</string>
     <string name="big_pizza">Большая</string>
     <string name="traditional_dough">Традиционное</string>
     <string name="thin_dough">Тонкое</string>
-    <string name="add_to_cart">В корзину</string>
+    <string name="add_to_cart">В корзину за</string>
 
     <!-- Profile Fragment -->
     <string name="profile_user_name">Имя</string>

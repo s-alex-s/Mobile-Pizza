@@ -8,18 +8,16 @@ public class Food implements Serializable {
     private String name_en;
     private String name_ru;
     private String key;
-    private String price;
     private String img;
 
     public Food() {}
 
-    public Food(String description, String name, String key, String price, String img) {
-        this.description_en = description;
-        this.description_ru = description;
+    public Food(String description_ru, String description_en, String name, String key, String img) {
+        this.description_en = description_en;
+        this.description_ru = description_ru;
         this.name_en = name;
         this.name_ru = name;
         this.key =  key;
-        this.price = price;
         this.img = img;
     }
 
@@ -61,14 +59,6 @@ public class Food implements Serializable {
 
     public void setKey(String key) {
         this.key = key;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public String getImg() {

@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mobilepizza.FoodActivity;
 import com.example.mobilepizza.R;
-import com.example.mobilepizza.classes.FoodClasses.Pizza;
+import com.example.mobilepizza.classes.FoodClasses.Drinks;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -28,20 +27,20 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class PizzaRecycleAdapter extends RecyclerView.Adapter<PizzaRecycleAdapter.MyViewHolder> {
+public class DrinksRecycleAdapter extends RecyclerView.Adapter<DrinksRecycleAdapter.MyViewHolder> {
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReference();
 
-    private final ArrayList<Pizza> pizzaList;
+    private final ArrayList<Drinks> drinksList;
 
-    public PizzaRecycleAdapter(ArrayList<Pizza> pizzaList) {
-        this.pizzaList = pizzaList;
+    public DrinksRecycleAdapter(ArrayList<Drinks> drinksList) {
+        this.drinksList = drinksList;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView pizzaName;
+        TextView drinkName;
         ImageView imageView;
         Button button;
         ProgressBar progressBar;
@@ -49,54 +48,51 @@ public class PizzaRecycleAdapter extends RecyclerView.Adapter<PizzaRecycleAdapte
         public MyViewHolder(final View view) {
             super(view);
 
-            pizzaName = view.findViewById(R.id.foodactivity_name);
+            drinkName = view.findViewById(R.id.foodactivity_name);
             imageView = view.findViewById(R.id.food_img);
             button = view.findViewById(R.id.add_cart_button);
             progressBar = view.findViewById(R.id.progressBar4);
         }
     }
 
-
     @NonNull
     @Override
-    public PizzaRecycleAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.foodlist_items, parent, false);
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.foodlist_items, parent, false);
-
-        return new MyViewHolder(itemView);
+        return new MyViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull PizzaRecycleAdapter.MyViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), FoodActivity.class);
-                intent.putExtra("food", pizzaList.get(holder.getAdapterPosition()));
-                intent.putExtra("type", "pizza");
+                intent.putExtra("food", drinksList.get(holder.getAdapterPosition()));
+                intent.putExtra("type", "drink");
                 holder.itemView.getContext().startActivity(intent);
             }
         });
 
         String name = "";
         if (Locale.getDefault().getLanguage().equals("ru")) {
-            name = pizzaList.get(position).getName_ru();
+            name = drinksList.get(position).getName_ru();
         } else if (Locale.getDefault().getLanguage().equals("en")) {
-            name = pizzaList.get(position).getName_en();
+            name = drinksList.get(position).getName_en();
         }
 
-        holder.pizzaName.setText(name);
+        holder.drinkName.setText(name);
         if (Locale.getDefault().getLanguage().equals("ru")) {
             holder.button.setText(holder.itemView.getContext().getString(R.string.from) + " " +
-                    pizzaList.get(position).getPrice_small() + "₸");
+                    drinksList.get(position).getPrice() + "₸");
         } else if (Locale.getDefault().getLanguage().equals("en")) {
             holder.button.setText(holder.itemView.getContext().getString(R.string.from) + " " +
-                    pizzaList.get(position).getPrice_small() + "₸");
+                    drinksList.get(position).getPrice() + "₸");
         }
 
-        storageReference.child(pizzaList.get(position).getImg()).getDownloadUrl()
+        storageReference.child(drinksList.get(position).getImg()).getDownloadUrl()
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -116,6 +112,6 @@ public class PizzaRecycleAdapter extends RecyclerView.Adapter<PizzaRecycleAdapte
 
     @Override
     public int getItemCount() {
-        return pizzaList.size();
+        return drinksList.size();
     }
 }
