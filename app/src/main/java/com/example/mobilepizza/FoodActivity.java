@@ -1,6 +1,7 @@
 package com.example.mobilepizza;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,23 +12,35 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.mobilepizza.classes.CartItems;
 import com.example.mobilepizza.classes.Food;
 import com.example.mobilepizza.classes.FoodClasses.Drinks;
 import com.example.mobilepizza.classes.FoodClasses.Pizza;
 import com.example.mobilepizza.classes.FoodClasses.Snacks;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Locale;
 
 public class FoodActivity extends AppCompatActivity {
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = database.getReference(), push;
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReference();
@@ -69,7 +82,7 @@ public class FoodActivity extends AppCompatActivity {
     private void setSnacksView(Snacks food) {
         setFoodInfo(food);
 
-        food_settings.setVisibility(View.GONE);
+        food_settings.setText("1 " + getString(R.string.quantity));
         dough.setVisibility(View.GONE);
         size.setVisibility(View.GONE);
 
@@ -77,7 +90,21 @@ public class FoodActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CartItems cartItem = new CartItems();
 
+                cartItem.setImg(food.getImg());
+                cartItem.setName_ru(food.getName_ru());
+                cartItem.setName_en(food.getName_en());
+                cartItem.setPrice(Integer.parseInt(food.getPrice()));
+
+                cartItem.setSettings_ru(food.getDescription_ru());
+                cartItem.setSettings_en(food.getDescription_en());
+
+                push = databaseReference.child("cart").child(user.getUid()).push();
+                cartItem.setKey(push.getKey());
+                push.setValue(cartItem);
+
+                Toast.makeText(FoodActivity.this, getString(R.string.add_snack_success), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -91,11 +118,24 @@ public class FoodActivity extends AppCompatActivity {
         size.setVisibility(View.GONE);
 
         button.setText(getString(R.string.add_to_cart) + " " + food.getPrice() + "₸");
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CartItems cartItem = new CartItems();
 
+                cartItem.setImg(food.getImg());
+                cartItem.setName_ru(food.getName_ru());
+                cartItem.setName_en(food.getName_en());
+                cartItem.setPrice(Integer.parseInt(food.getPrice()));
+
+                cartItem.setSettings_ru(food.getDescription_ru());
+                cartItem.setSettings_en(food.getDescription_en());
+
+                push = databaseReference.child("cart").child(user.getUid()).push();
+                cartItem.setKey(push.getKey());
+                push.setValue(cartItem);
+
+                Toast.makeText(FoodActivity.this, getString(R.string.add_drink_success), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -140,6 +180,31 @@ public class FoodActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CartItems cartItem = new CartItems();
+
+                cartItem.setImg(food.getImg());
+                cartItem.setName_ru(food.getName_ru());
+                cartItem.setName_en(food.getName_en());
+                switch (food.getSize()) {
+                    case "30":
+                        cartItem.setPrice(Integer.parseInt(food.getPrice_medium()));
+                        break;
+                    case "25":
+                        cartItem.setPrice(Integer.parseInt(food.getPrice_small()));
+                        break;
+                    case "35":
+                        cartItem.setPrice(Integer.parseInt(food.getPrice_big()));
+                        break;
+                }
+
+                cartItem.setSettings_ru(getRuPizzaSettings(food));
+                cartItem.setSettings_en(getEnPizzaSettings(food));
+
+                push = databaseReference.child("cart").child(user.getUid()).push();
+                cartItem.setKey(push.getKey());
+                push.setValue(cartItem);
+
+                Toast.makeText(FoodActivity.this, getString(R.string.add_pizza_success), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -216,5 +281,61 @@ public class FoodActivity extends AppCompatActivity {
         }
 
         food_settings.setText(stringBuilder.toString());
+    }
+
+    @SuppressLint("SetTextI18n")
+    public String getRuPizzaSettings(Pizza food) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        switch (food.getSize()) {
+            case "30":
+                stringBuilder.append("Средняя");
+                break;
+            case "25":
+                stringBuilder.append("Маленькая");
+                break;
+            case "35":
+                stringBuilder.append("Большая");
+                break;
+        }
+
+        stringBuilder
+                .append(" ")
+                .append(food.getSize())
+                .append(" ")
+                .append("см")
+                .append(", ");
+
+        stringBuilder.append(food.getDough_ru().toLowerCase()).append(" тесто");
+
+        return stringBuilder.toString();
+    }
+
+    @SuppressLint("SetTextI18n")
+    public String getEnPizzaSettings(Pizza food) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        switch (food.getSize()) {
+            case "30":
+                stringBuilder.append("Medium");
+                break;
+            case "25":
+                stringBuilder.append("Small");
+                break;
+            case "35":
+                stringBuilder.append("Big");
+                break;
+        }
+
+        stringBuilder
+                .append(" ")
+                .append(food.getSize())
+                .append(" ")
+                .append("cm")
+                .append(", ");
+
+        stringBuilder.append(food.getDough_en().toLowerCase()).append(" dough");
+
+        return stringBuilder.toString();
     }
 }

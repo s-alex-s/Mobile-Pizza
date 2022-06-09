@@ -5,6 +5,8 @@
     <string name="size">см</string>
     <string name="dough">тесто</string>
     <string name="from">от</string>
+    <string name="quantity">шт.</string>
+    <string name="make_order">Оформить за</string>
 
     <!-- Navigation -->
     <string name="food_fragment_title">Меню</string>
@@ -22,6 +24,9 @@
     <string name="traditional_dough">Традиционное</string>
     <string name="thin_dough">Тонкое</string>
     <string name="add_to_cart">В корзину за</string>
+    <string name="add_pizza_success">Пицца добавлена в корзину</string>
+    <string name="add_snack_success">Еда добавлена в корзину</string>
+    <string name="add_drink_success">Напиток добавлен в корзину</string>
 
     <!-- Profile Fragment -->
     <string name="profile_user_name">Имя</string>
@@ -39,6 +44,9 @@
     <string name="add_address_success">Адрес доставки добавлен</string>
     <string name="add">Добавить</string>
     <string name="logout">Выйти</string>
+
+    <!-- Cart Fragment -->
+    <string name="cart_empty">В корзине пусто</string>
 
     <!-- Auth Activity -->
     <string name="google_sign_in">Войти с помощью Google</string>
