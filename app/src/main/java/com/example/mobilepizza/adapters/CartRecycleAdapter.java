@@ -87,14 +87,9 @@ public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.
                         cartItems.get(holder.getAdapterPosition()).getQuantity() + "₸");
                 holder.quantity.setText(cartItems.get(holder.getAdapterPosition()).getQuantity() + "");
 
-                CartItems to_add = cartItems.get(holder.getAdapterPosition());
-                to_add.setQuantity(1);
-
-                push = databaseReference.child("cart")
-                        .child(mAuth.getCurrentUser().getUid())
-                        .push();
-                to_add.setKey(push.getKey());
-                push.setValue(to_add);
+                databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
+                        .child(cartItems.get(holder.getAdapterPosition()).getKey())
+                        .setValue(cartItems.get(holder.getAdapterPosition()));
 
                 lastAction = "ed";
             }
@@ -103,27 +98,31 @@ public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.
         holder.minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cartItems.get(holder.getAdapterPosition())
-                        .setQuantity(cartItems.get(holder.getAdapterPosition()).getQuantity() - 1);
+                try {
+                    cartItems.get(holder.getAdapterPosition())
+                            .setQuantity(cartItems.get(holder.getAdapterPosition()).getQuantity() - 1);
 
-                holder.price.setText(cartItems.get(holder.getAdapterPosition()).getPrice() *
-                        cartItems.get(holder.getAdapterPosition()).getQuantity() + "₸");
-                holder.quantity.setText(cartItems.get(holder.getAdapterPosition()).getQuantity() + "");
-
-                lastAction = "ed";
-
-                if (cartItems.get(holder.getAdapterPosition()).getQuantity() == 0) {
-                    cartItems.remove(holder.getAdapterPosition());
-                    CartRecycleAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
-                    lastAction = "rm";
+                    holder.price.setText(cartItems.get(holder.getAdapterPosition()).getPrice() *
+                            cartItems.get(holder.getAdapterPosition()).getQuantity() + "₸");
+                    holder.quantity.setText(cartItems.get(holder.getAdapterPosition()).getQuantity() + "");
 
                     databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
                             .child(cartItems.get(holder.getAdapterPosition()).getKey())
-                            .removeValue();
-                } else {
-                    databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
-                            .child(cartItems.get(holder.getAdapterPosition()).getKey())
-                            .removeValue();
+                            .setValue(cartItems.get(holder.getAdapterPosition()));
+
+                    lastAction = "ed";
+
+                    if (cartItems.get(holder.getAdapterPosition()).getQuantity() == 0) {
+                        databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
+                                .child(cartItems.get(holder.getAdapterPosition()).getKey())
+                                .removeValue();
+
+                        cartItems.remove(holder.getAdapterPosition());
+                        CartRecycleAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                        lastAction = "rm";
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Log.e("addCart", "too many requests");
                 }
             }
         });

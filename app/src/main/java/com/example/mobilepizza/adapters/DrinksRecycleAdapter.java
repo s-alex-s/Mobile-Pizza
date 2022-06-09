@@ -85,11 +85,9 @@ public class DrinksRecycleAdapter extends RecyclerView.Adapter<DrinksRecycleAdap
 
         holder.drinkName.setText(name);
         if (Locale.getDefault().getLanguage().equals("ru")) {
-            holder.button.setText(holder.itemView.getContext().getString(R.string.from) + " " +
-                    drinksList.get(position).getPrice() + "₸");
+            holder.button.setText(drinksList.get(position).getPrice() + "₸");
         } else if (Locale.getDefault().getLanguage().equals("en")) {
-            holder.button.setText(holder.itemView.getContext().getString(R.string.from) + " " +
-                    drinksList.get(position).getPrice() + "₸");
+            holder.button.setText(drinksList.get(position).getPrice() + "₸");
         }
 
         storageReference.child(drinksList.get(position).getImg()).getDownloadUrl()

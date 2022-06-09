@@ -1,5 +1,6 @@
 package com.example.mobilepizza.ui.food;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,12 +66,6 @@ public class FoodFragment extends Fragment {
         drinksRecyclerView = view.findViewById(R.id.drinksRecycleView);
         drinksList = new ArrayList<>();
 
-        setLists(view);
-
-        return view;
-    }
-
-    private void setLists(View view) {
         PizzaRecycleAdapter adapter = new PizzaRecycleAdapter(pizzaList);
         pizzaRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
@@ -86,9 +81,13 @@ public class FoodFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL, false));
         drinksRecyclerView.setAdapter(drinksAdapter);
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        valueEventListener = new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pizzaList.clear();
+                snacksList.clear();
+                drinksList.clear();
 
                 for (DataSnapshot data : snapshot.child("pizza").getChildren()) {
                     pizzaList.add(data.getValue(Pizza.class));
@@ -102,6 +101,10 @@ public class FoodFragment extends Fragment {
                     drinksList.add(data.getValue(Drinks.class));
                 }
 
+                adapter.notifyDataSetChanged();
+                snacksAdapter.notifyDataSetChanged();
+                drinksAdapter.notifyDataSetChanged();
+
                 progressBar.setVisibility(View.GONE);
                 root_food.setVisibility(View.VISIBLE);
             }
@@ -110,6 +113,17 @@ public class FoodFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
             }
-        });
+        };
+
+        databaseReference.addValueEventListener(valueEventListener);
+
+        return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        databaseReference.removeEventListener(valueEventListener);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.mobilepizza;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,8 +26,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -100,9 +102,7 @@ public class FoodActivity extends AppCompatActivity {
                 cartItem.setSettings_ru(food.getDescription_ru());
                 cartItem.setSettings_en(food.getDescription_en());
 
-                push = databaseReference.child("cart").child(user.getUid()).push();
-                cartItem.setKey(push.getKey());
-                push.setValue(cartItem);
+                addInCart(cartItem);
 
                 Toast.makeText(FoodActivity.this, getString(R.string.add_snack_success), Toast.LENGTH_SHORT).show();
             }
@@ -131,9 +131,7 @@ public class FoodActivity extends AppCompatActivity {
                 cartItem.setSettings_ru(food.getDescription_ru());
                 cartItem.setSettings_en(food.getDescription_en());
 
-                push = databaseReference.child("cart").child(user.getUid()).push();
-                cartItem.setKey(push.getKey());
-                push.setValue(cartItem);
+                addInCart(cartItem);
 
                 Toast.makeText(FoodActivity.this, getString(R.string.add_drink_success), Toast.LENGTH_SHORT).show();
             }
@@ -200,15 +198,54 @@ public class FoodActivity extends AppCompatActivity {
                 cartItem.setSettings_ru(getRuPizzaSettings(food));
                 cartItem.setSettings_en(getEnPizzaSettings(food));
 
-                push = databaseReference.child("cart").child(user.getUid()).push();
-                cartItem.setKey(push.getKey());
-                push.setValue(cartItem);
+                addInCart(cartItem);
 
                 Toast.makeText(FoodActivity.this, getString(R.string.add_pizza_success), Toast.LENGTH_SHORT).show();
             }
         });
 
         updatePizzaSettings(food);
+    }
+
+    public void addInCart(CartItems cartItem) {
+        databaseReference.child("cart").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getChildrenCount() != 0) {
+                    boolean add = true;
+
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        if (cartItem.equals(data.getValue(CartItems.class))) {
+                            add = false;
+                            cartItem.setQuantity(data.getValue(CartItems.class).getQuantity() +
+                                    cartItem.getQuantity());
+                            cartItem.setKey(data.getValue(CartItems.class).getKey());
+
+                            databaseReference
+                                    .child("cart")
+                                    .child(user.getUid())
+                                    .child(cartItem.getKey())
+                                    .setValue(cartItem);
+                        }
+                    }
+
+                    if (add) {
+                        push = databaseReference.child("cart").child(user.getUid()).push();
+                        cartItem.setKey(push.getKey());
+                        push.setValue(cartItem);
+                    }
+                } else {
+                    push = databaseReference.child("cart").child(user.getUid()).push();
+                    cartItem.setKey(push.getKey());
+                    push.setValue(cartItem);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(FoodActivity.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void setFoodInfo(Food food) {

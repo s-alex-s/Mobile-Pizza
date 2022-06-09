@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobilepizza.R;
 import com.example.mobilepizza.adapters.CartRecycleAdapter;
 import com.example.mobilepizza.classes.CartItems;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +45,8 @@ public class CartFragment extends Fragment {
     ProgressBar progressBar;
     FrameLayout root_cart;
     TextView title;
+    Button button;
+    RelativeLayout relativeLayout;
 
     ValueEventListener valueEventListener;
 
@@ -53,6 +58,8 @@ public class CartFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar7);
         root_cart = view.findViewById(R.id.root_cart);
         title = view.findViewById(R.id.cart_title_text);
+        button = view.findViewById(R.id.button);
+        relativeLayout = view.findViewById(R.id.relativeLayout);
 
         cartRecyclerView = view.findViewById(R.id.cart_list);
         cartItems = new ArrayList<>();
@@ -62,25 +69,37 @@ public class CartFragment extends Fragment {
         cartRecyclerView.setAdapter(adapter);
 
         valueEventListener = new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
+            @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cartItems.clear();
+                int sum = 0;
+                int quantity = 0;
 
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    if (cartItems.contains(data.getValue(CartItems.class))) {
-                        for (int i = 0; i < cartItems.size(); i++) {
-                            if (cartItems.get(i).equals(data.getValue(CartItems.class))) {
-                                cartItems.get(i).setQuantity(cartItems.get(i).getQuantity() + 1);
-                            }
-                        }
-                    } else {
-                        cartItems.add(data.getValue(CartItems.class));
-                    }
+                    cartItems.add(data.getValue(CartItems.class));
+
+                    sum += data.getValue(CartItems.class).getPrice() *
+                    data.getValue(CartItems.class).getQuantity();
+
+                    quantity += data.getValue(CartItems.class).getQuantity();
                 }
 
                 if (cartItems.size() == 0) {
                     title.setText(getString(R.string.cart_empty));
+                    relativeLayout.setVisibility(View.GONE);
+                } else {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.append(quantity + " ");
+                    if (cartItems.size() > 1) {
+                        stringBuilder.append(getString(R.string.items));
+                    } else {
+                        stringBuilder.append(getString(R.string.item));
+                    }
+                    stringBuilder.append(" " + getString(R.string.amount) + " " + sum + "₸");
+
+                    title.setText(stringBuilder.toString());
+                    button.setText(getString(R.string.make_order) + " " + sum + "₸");
                 }
 
                 if (adapter.getLastAction().equals("ed")) {
@@ -96,6 +115,21 @@ public class CartFragment extends Fragment {
                 Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
             }
         };
+        
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int endIndex = cartItems.size();
+
+                databaseReference.child("cart").child(user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        adapter.notifyItemRangeRemoved(0, endIndex);
+                        Toast.makeText(getContext(), getString(R.string.order_added), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
         databaseReference.child("cart").child(user.getUid()).addValueEventListener(valueEventListener);
 

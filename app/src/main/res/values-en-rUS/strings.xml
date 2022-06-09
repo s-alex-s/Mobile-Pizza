@@ -58,4 +58,8 @@
     <string name="cart_empty">Cart is empty</string>
     <string name="add_snack_success">Snack added to cart</string>
     <string name="add_drink_success">Drink added to cart</string>
+    <string name="items">items</string>
+    <string name="item">item</string>
+    <string name="amount">in the amount of</string>
+    <string name="order_added">Order added, expect delivery</string>
 </resources>

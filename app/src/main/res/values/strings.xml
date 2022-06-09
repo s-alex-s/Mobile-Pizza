@@ -47,6 +47,10 @@
 
     <!-- Cart Fragment -->
     <string name="cart_empty">В корзине пусто</string>
+    <string name="item">товар</string>
+    <string name="items">товаров</string>
+    <string name="amount">на</string>
+    <string name="order_added">Заказ добавлен, ожидайте доставки</string>
 
     <!-- Auth Activity -->
     <string name="google_sign_in">Войти с помощью Google</string>
