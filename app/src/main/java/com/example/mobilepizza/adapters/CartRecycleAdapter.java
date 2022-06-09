@@ -110,20 +110,20 @@ public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.
                         cartItems.get(holder.getAdapterPosition()).getQuantity() + "₸");
                 holder.quantity.setText(cartItems.get(holder.getAdapterPosition()).getQuantity() + "");
 
-                databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
-                        .child(cartItems.get(holder.getAdapterPosition()).getKey())
-                        .removeValue();
-
                 lastAction = "ed";
 
                 if (cartItems.get(holder.getAdapterPosition()).getQuantity() == 0) {
-                    databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
-                            .child(cartItems.get(holder.getAdapterPosition()).getKey())
-                            .removeValue();
-
                     cartItems.remove(holder.getAdapterPosition());
                     CartRecycleAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
                     lastAction = "rm";
+
+                    databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
+                            .child(cartItems.get(holder.getAdapterPosition()).getKey())
+                            .removeValue();
+                } else {
+                    databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
+                            .child(cartItems.get(holder.getAdapterPosition()).getKey())
+                            .removeValue();
                 }
             }
         });

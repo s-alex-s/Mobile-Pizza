@@ -33,6 +33,8 @@ public class FoodFragment extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = database.getReference();
 
+    ValueEventListener valueEventListener;
+
     ArrayList<Pizza> pizzaList;
     RecyclerView pizzaRecyclerView;
 
