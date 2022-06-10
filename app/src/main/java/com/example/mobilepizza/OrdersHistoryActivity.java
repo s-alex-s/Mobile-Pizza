@@ -42,8 +42,13 @@ public class OrdersHistoryActivity extends AppCompatActivity {
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<HistoryItem> to_reverse = new ArrayList<>();
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    historyItems.add(data.getValue(HistoryItem.class));
+                    to_reverse.add(data.getValue(HistoryItem.class));
+                }
+
+                for (int i = to_reverse.size() - 1; i != -1; i--) {
+                    historyItems.add(to_reverse.get(i));
                 }
 
                 HistoryRecyclerAdapter adapter = new HistoryRecyclerAdapter(historyItems);
