@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.mobilepizza.AuthActivity;
+import com.example.mobilepizza.OrdersHistoryActivity;
 import com.example.mobilepizza.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -49,13 +50,13 @@ public class ProfileFragment extends Fragment {
     ScrollView google_profile;
     ImageView google_profile_photo;
     TextView google_name, google_phone, google_email, phone_title, google_address;
-    Button google_logout_button;
+    Button google_logout_button, google_history_button;
     CardView add_phone_number, add_google_address;
 
     // Phone profile elements
     ScrollView phone_profile;
     TextView phone_name, phone_phone_number, phone_address;
-    Button phone_logout_button;
+    Button phone_logout_button, phone_history_button;
     CardView add_name, add_phone_address;
 
     @Override
@@ -82,6 +83,7 @@ public class ProfileFragment extends Fragment {
         google_phone = view.findViewById(R.id.google_phone_text);
         google_logout_button = view.findViewById(R.id.google_logout_button);
         google_email = view.findViewById(R.id.google_email);
+        google_history_button = view.findViewById(R.id.google_order_history_button);
 
         // Phone profile elements
         phone_logout_button = view.findViewById(R.id.phone_logout_button);
@@ -91,6 +93,7 @@ public class ProfileFragment extends Fragment {
         phone_profile = view.findViewById(R.id.phone_profile);
         add_phone_address = view.findViewById(R.id.phone_address);
         add_name = view.findViewById(R.id.phone_name_card);
+        phone_history_button = view.findViewById(R.id.phone_order_history_button);
 
         getUserProfile(view);
 
@@ -251,6 +254,13 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
+            google_history_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getContext(), OrdersHistoryActivity.class));
+                }
+            });
+
             db_ref.child("users").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -296,6 +306,13 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     getPhoneNameDialog(getActivity());
+                }
+            });
+
+            phone_history_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getContext(), OrdersHistoryActivity.class));
                 }
             });
 

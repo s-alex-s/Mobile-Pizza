@@ -6,7 +6,6 @@
     <string name="dough">тесто</string>
     <string name="from">от</string>
     <string name="quantity">шт.</string>
-    <string name="make_order">Оформить за</string>
 
     <!-- Navigation -->
     <string name="food_fragment_title">Меню</string>
@@ -28,6 +27,10 @@
     <string name="add_snack_success">Еда добавлена в корзину</string>
     <string name="add_drink_success">Напиток добавлен в корзину</string>
 
+    <!-- History Activity -->
+    <string name="sum">Сумма</string>
+    <string name="repeat_order">Повторить заказ</string>
+
     <!-- Profile Fragment -->
     <string name="profile_user_name">Имя</string>
     <string name="profile_phone_number">Номер телефона</string>
@@ -46,11 +49,15 @@
     <string name="logout">Выйти</string>
 
     <!-- Cart Fragment -->
+    <string name="delivery">Доставка</string>
+    <string name="cost_order">Стоимость заказа</string>
     <string name="cart_empty">В корзине пусто</string>
     <string name="item">товар</string>
     <string name="items">товаров</string>
     <string name="amount">на</string>
     <string name="order_added">Заказ добавлен, ожидайте доставки</string>
+    <string name="make_order">Оформить за</string>
+    <string name="make_order_confirm">Оформить заказ</string>
 
     <!-- Auth Activity -->
     <string name="google_sign_in">Войти с помощью Google</string>

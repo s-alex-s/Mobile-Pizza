@@ -62,4 +62,9 @@
     <string name="item">item</string>
     <string name="amount">in the amount of</string>
     <string name="order_added">Order added, expect delivery</string>
+    <string name="delivery">Delivery</string>
+    <string name="cost_order">Cost of order</string>
+    <string name="make_order_confirm">Place an order</string>
+    <string name="sum">Total</string>
+    <string name="repeat_order">Repeat order</string>
 </resources>
