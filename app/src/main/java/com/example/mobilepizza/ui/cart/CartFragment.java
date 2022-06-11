@@ -53,7 +53,6 @@ public class CartFragment extends Fragment {
 
     ArrayList<CartItems> cartItems;
     RecyclerView cartRecyclerView;
-    CartRecycleAdapter adapter;
 
     ProgressBar progressBar;
     FrameLayout root_cart;
@@ -82,7 +81,7 @@ public class CartFragment extends Fragment {
         cartRecyclerView = view.findViewById(R.id.cart_list);
         cartItems = new ArrayList<>();
 
-        adapter = new CartRecycleAdapter(cartItems);
+        CartRecycleAdapter adapter = new CartRecycleAdapter(cartItems);
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         cartRecyclerView.setAdapter(adapter);
 
@@ -148,8 +147,10 @@ public class CartFragment extends Fragment {
                         if (i == DialogInterface.BUTTON_POSITIVE) {
                             databaseReference.child("cart").child(user.getUid()).removeValue()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @SuppressLint("NotifyDataSetChanged")
                                         @Override
                                         public void onSuccess(Void unused) {
+                                            adapter.notifyDataSetChanged();
                                             Toast.makeText(getContext(), getString(R.string.cart_cleared), Toast.LENGTH_SHORT).show();
                                         }
                                     })
@@ -173,7 +174,7 @@ public class CartFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makeOrderDialog(getActivity());
+                makeOrderDialog(getActivity(), adapter);
             }
         });
 
@@ -182,7 +183,7 @@ public class CartFragment extends Fragment {
         return view;
     }
 
-    public void getDeliveryAddressDialog(Activity activity) {
+    public void getDeliveryAddressDialog(Activity activity, CartRecycleAdapter adapter) {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.get_delivery_address);
 
@@ -201,7 +202,7 @@ public class CartFragment extends Fragment {
                                 public void onSuccess(Void unused) {
                                     Toast.makeText(activity, getString(R.string.add_address_success), Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
-                                    makeOrderDialog(activity);
+                                    makeOrderDialog(activity, adapter);
                                     dialog.dismiss();
                                 }
                             })
@@ -222,7 +223,7 @@ public class CartFragment extends Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    public void makeOrderDialog(Activity activity) {
+    public void makeOrderDialog(Activity activity, CartRecycleAdapter adapter) {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.order_window);
 
@@ -235,7 +236,7 @@ public class CartFragment extends Fragment {
                 if (!String.valueOf(snapshot.getValue()).equals("null")) {
                     address.setText(getString(R.string.profile_address) + ": " + snapshot.getValue().toString());
                 } else {
-                    getDeliveryAddressDialog(activity);
+                    getDeliveryAddressDialog(activity, adapter);
                     dialog.dismiss();
                 }
 
@@ -256,7 +257,7 @@ public class CartFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDeliveryAddressDialog(getActivity());
+                getDeliveryAddressDialog(getActivity(), adapter);
                 dialog.dismiss();
             }
         });
