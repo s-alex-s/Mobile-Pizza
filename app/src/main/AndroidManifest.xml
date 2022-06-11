@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobilePizza">
         <activity
+            android:name=".OrderViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".OrdersHistoryActivity"
             android:exported="false" />
         <activity

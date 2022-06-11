@@ -30,7 +30,6 @@ import java.util.Locale;
 public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.MyViewHolder> {
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference push;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -80,16 +79,14 @@ public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cartItems.get(holder.getAdapterPosition())
-                        .setQuantity(cartItems.get(holder.getAdapterPosition()).getQuantity() + 1);
+                if (cartItems.get(holder.getAdapterPosition()).getQuantity() != 50) {
+                    cartItems.get(holder.getAdapterPosition())
+                            .setQuantity(cartItems.get(holder.getAdapterPosition()).getQuantity() + 1);
 
-                holder.price.setText(cartItems.get(holder.getAdapterPosition()).getPrice() *
-                        cartItems.get(holder.getAdapterPosition()).getQuantity() + "₸");
-                holder.quantity.setText(cartItems.get(holder.getAdapterPosition()).getQuantity() + "");
-
-                databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
-                        .child(cartItems.get(holder.getAdapterPosition()).getKey())
-                        .setValue(cartItems.get(holder.getAdapterPosition()));
+                    databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
+                            .child(cartItems.get(holder.getAdapterPosition()).getKey())
+                            .setValue(cartItems.get(holder.getAdapterPosition()));
+                }
 
                 lastAction = "ed";
             }
@@ -101,10 +98,6 @@ public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.
                 try {
                     cartItems.get(holder.getAdapterPosition())
                             .setQuantity(cartItems.get(holder.getAdapterPosition()).getQuantity() - 1);
-
-                    holder.price.setText(cartItems.get(holder.getAdapterPosition()).getPrice() *
-                            cartItems.get(holder.getAdapterPosition()).getQuantity() + "₸");
-                    holder.quantity.setText(cartItems.get(holder.getAdapterPosition()).getQuantity() + "");
 
                     databaseReference.child("cart").child(mAuth.getCurrentUser().getUid())
                             .child(cartItems.get(holder.getAdapterPosition()).getKey())
@@ -130,7 +123,7 @@ public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.
         if (Locale.getDefault().getLanguage().equals("ru")) {
             holder.name.setText(cartItems.get(position).getName_ru());
             holder.settings.setText(cartItems.get(position).getSettings_ru());
-        } else if (Locale.getDefault().getLanguage().equals("en")) {
+        } else {
             holder.name.setText(cartItems.get(position).getName_en());
             holder.settings.setText(cartItems.get(position).getSettings_en());
         }

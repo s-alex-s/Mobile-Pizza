@@ -80,16 +80,12 @@ public class SnacksRecycleAdapter extends RecyclerView.Adapter<SnacksRecycleAdap
         String name = "";
         if (Locale.getDefault().getLanguage().equals("ru")) {
             name = snacksList.get(position).getName_ru();
-        } else if (Locale.getDefault().getLanguage().equals("en")) {
+        } else {
             name = snacksList.get(position).getName_en();
         }
 
         holder.snackName.setText(name);
-        if (Locale.getDefault().getLanguage().equals("ru")) {
-            holder.button.setText(snacksList.get(position).getPrice() + "₸");
-        } else if (Locale.getDefault().getLanguage().equals("en")) {
-            holder.button.setText(snacksList.get(position).getPrice() + "₸");
-        }
+        holder.button.setText(snacksList.get(position).getPrice() + "₸");
 
         storageReference.child(snacksList.get(position).getImg()).getDownloadUrl()
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {

@@ -27,6 +27,8 @@ import com.example.mobilepizza.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -52,12 +54,14 @@ public class ProfileFragment extends Fragment {
     TextView google_name, google_phone, google_email, phone_title, google_address;
     Button google_logout_button, google_history_button;
     CardView add_phone_number, add_google_address;
+    ValueEventListener googleProfileListener;
 
     // Phone profile elements
     ScrollView phone_profile;
     TextView phone_name, phone_phone_number, phone_address;
     Button phone_logout_button, phone_history_button;
     CardView add_name, add_phone_address;
+    ValueEventListener phoneProfileListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,6 +88,30 @@ public class ProfileFragment extends Fragment {
         google_logout_button = view.findViewById(R.id.google_logout_button);
         google_email = view.findViewById(R.id.google_email);
         google_history_button = view.findViewById(R.id.google_order_history_button);
+        googleProfileListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!String.valueOf(snapshot.child("phone_number").getValue()).equals("null")) {
+                    google_phone.setText(snapshot.child("phone_number").getValue().toString());
+                } else {
+                    google_phone.setText("");
+                }
+
+                if (!String.valueOf(snapshot.child("delivery_address").getValue()).equals("null")) {
+                    google_address.setText(snapshot.child("delivery_address").getValue().toString());
+                } else {
+                    google_address.setText("");
+                }
+                progressBar.setVisibility(View.GONE);
+                google_profile.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("firebase", error.getMessage());
+                Toast.makeText(view.getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+        };
 
         // Phone profile elements
         phone_logout_button = view.findViewById(R.id.phone_logout_button);
@@ -94,6 +122,30 @@ public class ProfileFragment extends Fragment {
         add_phone_address = view.findViewById(R.id.phone_address);
         add_name = view.findViewById(R.id.phone_name_card);
         phone_history_button = view.findViewById(R.id.phone_order_history_button);
+        phoneProfileListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!String.valueOf(snapshot.child("user_name").getValue()).equals("null")) {
+                    phone_name.setText(snapshot.child("user_name").getValue().toString());
+                } else {
+                    phone_name.setText("");
+                }
+
+                if (!String.valueOf(snapshot.child("delivery_address").getValue()).equals("null")) {
+                    phone_address.setText(snapshot.child("delivery_address").getValue().toString());
+                } else {
+                    phone_address.setText("");
+                }
+                progressBar.setVisibility(View.GONE);
+                phone_profile.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("firebase", error.getMessage());
+                Toast.makeText(view.getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+        };
 
         getUserProfile(view);
 
@@ -107,15 +159,29 @@ public class ProfileFragment extends Fragment {
         EditText editText = dialog.findViewById(R.id.name_edittext_dialog);
         editText.setText(phone_name.getText().toString());
         Button button = dialog.findViewById(R.id.name_dialog_button);
+        ProgressBar progressBar = dialog.findViewById(R.id.progressBar12);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!editText.getText().toString().replace(" ", "").equals("")) {
-                    db_ref.child("users").child(currentUser.getUid()).child("user_name").setValue(editText.getText().toString().trim());
-                    Toast.makeText(activity, getString(R.string.add_phone_name_success), Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                    phone_name.setText(editText.getText().toString().trim());
+                    progressBar.setVisibility(View.VISIBLE);
+                    db_ref.child("users").child(currentUser.getUid()).child("user_name").setValue(editText.getText().toString().trim())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(activity, getString(R.string.add_phone_name_success), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 } else {
                     editText.setError(getString(R.string.add_phone_name));
                 }
@@ -132,15 +198,29 @@ public class ProfileFragment extends Fragment {
         EditText editText = dialog.findViewById(R.id.address_edittext_dialog);
         editText.setText(phone_address.getText().toString());
         Button button = dialog.findViewById(R.id.address_dialog_button);
+        ProgressBar progressBar = dialog.findViewById(R.id.progressBar11);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!editText.getText().toString().replace(" ", "").equals("")) {
-                    db_ref.child("users").child(currentUser.getUid()).child("delivery_address").setValue(editText.getText().toString().trim());
-                    Toast.makeText(activity, getString(R.string.add_address_success), Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                    phone_address.setText(editText.getText().toString().trim());
+                    progressBar.setVisibility(View.VISIBLE);
+                    db_ref.child("users").child(currentUser.getUid()).child("delivery_address").setValue(editText.getText().toString().trim())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(activity, getString(R.string.add_address_success), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 } else {
                     editText.setError(getString(R.string.address_incorrect));
                 }
@@ -157,15 +237,29 @@ public class ProfileFragment extends Fragment {
         EditText editText = dialog.findViewById(R.id.address_edittext_dialog);
         editText.setText(google_address.getText().toString());
         Button button = dialog.findViewById(R.id.address_dialog_button);
+        ProgressBar progressBar = dialog.findViewById(R.id.progressBar11);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!editText.getText().toString().replace(" ", "").equals("")) {
-                    db_ref.child("users").child(currentUser.getUid()).child("delivery_address").setValue(editText.getText().toString().trim());
-                    Toast.makeText(activity, getString(R.string.add_address_success), Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                    google_address.setText(editText.getText().toString().trim());
+                    progressBar.setVisibility(View.VISIBLE);
+                    db_ref.child("users").child(currentUser.getUid()).child("delivery_address").setValue(editText.getText().toString().trim())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(activity, getString(R.string.add_address_success), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 } else {
                     editText.setError(getString(R.string.address_incorrect));
                 }
@@ -180,12 +274,15 @@ public class ProfileFragment extends Fragment {
         dialog.setContentView(R.layout.get_phone_number);
 
         EditText editText = dialog.findViewById(R.id.editTextPhone_dialog);
+        ProgressBar progressBar = dialog.findViewById(R.id.progressBar13);
 
         StringBuilder stringBuilder = new StringBuilder();
-        int count = 0;
-        for (int i = google_phone.getText().toString().length() - 1; count < 10; i--) {
-            stringBuilder.append(google_phone.getText().toString().charAt(i));
-            count++;
+        if (!google_phone.getText().toString().isEmpty()) {
+            int count = 0;
+            for (int i = google_phone.getText().toString().length() - 1; count < 10; i--) {
+                stringBuilder.append(google_phone.getText().toString().charAt(i));
+                count++;
+            }
         }
 
         editText.setText(stringBuilder.reverse().toString());
@@ -197,11 +294,24 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
 
                 if (editText.getText().toString().length() == 10) {
+                    progressBar.setVisibility(View.VISIBLE);
                     String phone_input = ccp.getSelectedCountryCodeWithPlus() + editText.getText().toString();
-                    db_ref.child("users").child(currentUser.getUid()).child("phone_number").setValue(phone_input);
-                    Toast.makeText(activity, getString(R.string.add_phone_success), Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                    google_phone.setText(phone_input);
+                    db_ref.child("users").child(currentUser.getUid()).child("phone_number").setValue(phone_input)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(activity, getString(R.string.add_phone_success), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 } else {
                     editText.setError(getString(R.string.number_error));
                 }
@@ -261,26 +371,8 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-            db_ref.child("users").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!String.valueOf(snapshot.child("phone_number").getValue()).equals("null")) {
-                        google_phone.setText(snapshot.child("phone_number").getValue().toString());
-                    }
+            db_ref.child("users").child(currentUser.getUid()).addValueEventListener(googleProfileListener);
 
-                    if (!String.valueOf(snapshot.child("delivery_address").getValue()).equals("null")) {
-                        google_address.setText(snapshot.child("delivery_address").getValue().toString());
-                    }
-                    progressBar.setVisibility(View.GONE);
-                    google_profile.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e("firebase", error.getMessage());
-                    Toast.makeText(view.getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
-                }
-            });
         } else if (currentUser.getProviderData().get(1).getProviderId().equals("phone")) {
 
             phone_phone_number.setText(currentUser.getPhoneNumber());
@@ -316,26 +408,15 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-            db_ref.child("users").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!String.valueOf(snapshot.child("user_name").getValue()).equals("null")) {
-                        phone_name.setText(snapshot.child("user_name").getValue().toString());
-                    }
-
-                    if (!String.valueOf(snapshot.child("delivery_address").getValue()).equals("null")) {
-                        phone_address.setText(snapshot.child("delivery_address").getValue().toString());
-                    }
-                    progressBar.setVisibility(View.GONE);
-                    phone_profile.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e("firebase", error.getMessage());
-                    Toast.makeText(view.getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
-                }
-            });
+            db_ref.child("users").child(currentUser.getUid()).addValueEventListener(phoneProfileListener);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        db_ref.child("users").child(currentUser.getUid()).removeEventListener(googleProfileListener);
+        db_ref.child("users").child(currentUser.getUid()).removeEventListener(phoneProfileListener);
     }
 }

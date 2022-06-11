@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -83,18 +82,13 @@ public class PizzaRecycleAdapter extends RecyclerView.Adapter<PizzaRecycleAdapte
         String name = "";
         if (Locale.getDefault().getLanguage().equals("ru")) {
             name = pizzaList.get(position).getName_ru();
-        } else if (Locale.getDefault().getLanguage().equals("en")) {
+        } else {
             name = pizzaList.get(position).getName_en();
         }
 
         holder.pizzaName.setText(name);
-        if (Locale.getDefault().getLanguage().equals("ru")) {
-            holder.button.setText(holder.itemView.getContext().getString(R.string.from) + " " +
-                    pizzaList.get(position).getPrice_small() + "₸");
-        } else if (Locale.getDefault().getLanguage().equals("en")) {
-            holder.button.setText(holder.itemView.getContext().getString(R.string.from) + " " +
-                    pizzaList.get(position).getPrice_small() + "₸");
-        }
+        holder.button.setText(holder.itemView.getContext().getString(R.string.from) + " " +
+                pizzaList.get(position).getPrice_small() + "₸");
 
         storageReference.child(pizzaList.get(position).getImg()).getDownloadUrl()
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {

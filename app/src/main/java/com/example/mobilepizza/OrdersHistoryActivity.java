@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobilepizza.adapters.HistoryRecyclerAdapter;
@@ -31,6 +34,9 @@ public class OrdersHistoryActivity extends AppCompatActivity {
     ArrayList<HistoryItem> historyItems;
     RecyclerView recyclerView;
 
+    TextView textView;
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +45,15 @@ public class OrdersHistoryActivity extends AppCompatActivity {
         historyItems = new ArrayList<>();
         recyclerView = findViewById(R.id.history_activity_recycler);
 
+        textView = findViewById(R.id.textView18);
+        progressBar = findViewById(R.id.progressBar14);
+        progressBar.setVisibility(View.VISIBLE);
+
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                historyItems.clear();
+
                 ArrayList<HistoryItem> to_reverse = new ArrayList<>();
                 for (DataSnapshot data : snapshot.getChildren()) {
                     to_reverse.add(data.getValue(HistoryItem.class));
@@ -51,9 +63,17 @@ public class OrdersHistoryActivity extends AppCompatActivity {
                     historyItems.add(to_reverse.get(i));
                 }
 
+                if (historyItems.isEmpty()) {
+                    textView.setVisibility(View.VISIBLE);
+                } else {
+                    textView.setVisibility(View.GONE);
+                }
+
                 HistoryRecyclerAdapter adapter = new HistoryRecyclerAdapter(historyItems);
                 recyclerView.setLayoutManager(new LinearLayoutManager(OrdersHistoryActivity.this));
                 recyclerView.setAdapter(adapter);
+
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override

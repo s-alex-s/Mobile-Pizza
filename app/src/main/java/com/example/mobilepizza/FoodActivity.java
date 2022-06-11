@@ -268,7 +268,7 @@ public class FoodActivity extends AppCompatActivity {
         if (Locale.getDefault().getLanguage().equals("ru")) {
             food_name.setText(food.getName_ru());
             food_description.setText(food.getDescription_ru());
-        } else if (Locale.getDefault().getLanguage().equals("en")) {
+        } else {
             food_name.setText(food.getName_en());
             food_description.setText(food.getDescription_en());
         }
@@ -312,7 +312,7 @@ public class FoodActivity extends AppCompatActivity {
         if (Locale.getDefault().getLanguage().equals("ru")) {
             stringBuilder.append(food.getDough_ru().toLowerCase())
                     .append(" тесто");
-        } else if (Locale.getDefault().getLanguage().equals("en")) {
+        } else {
             stringBuilder.append(food.getDough_en().toLowerCase())
                     .append(" dough");
         }

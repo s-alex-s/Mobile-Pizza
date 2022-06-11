@@ -67,4 +67,14 @@
     <string name="make_order_confirm">Place an order</string>
     <string name="sum">Total</string>
     <string name="repeat_order">Repeat order</string>
+    <string name="empty">Empty</string>
+    <string name="view_order">View the order</string>
+    <string name="order_time">Order time</string>
+    <string name="order_added_to_cart">The order has been added to the cart</string>
+    <string name="add_other_address">Add another address</string>
+    <string name="cart_cleared">The cart is cleared</string>
+    <string name="cart_clear">Empty the cart</string>
+    <string name="cart_warn">Do you really want to empty the cart?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

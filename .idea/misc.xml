@@ -20,8 +20,9 @@
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout-v21/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout-v21/fragment_cart.xml" value="0.33" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_auth.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_food.xml" value="0.33" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_food.xml" value="0.1" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_order_view.xml" value="0.33" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_orders_history.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_phone_auth.xml" value="0.33" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/activity_sms_code.xml" value="0.1" />
@@ -39,6 +40,7 @@
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/get_phone_number.xml" value="0.365625" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/history_image.xml" value="0.365625" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/history_items.xml" value="0.3516819571865443" />
+        <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/order_view_item.xml" value="0.365625" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/layout/order_window.xml" value="0.33" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/menu/bottom_nav_menu.xml" value="0.33" />
         <entry key="..\:/Users/Alex/Desktop/MobilePizza/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />

@@ -1,8 +1,9 @@
 package com.example.mobilepizza.classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class HistoryItem {
+public class HistoryItem implements Serializable {
 
     private String key;
     private String time;

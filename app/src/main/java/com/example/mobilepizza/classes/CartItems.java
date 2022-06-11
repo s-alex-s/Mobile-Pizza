@@ -1,8 +1,9 @@
 package com.example.mobilepizza.classes;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class CartItems {
+public class CartItems implements Serializable {
     private String name_ru, name_en;
     private int price;
     private String settings_ru, settings_en;

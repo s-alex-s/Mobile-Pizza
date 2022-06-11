@@ -2,13 +2,17 @@ package com.example.mobilepizza.ui.cart;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -24,6 +28,7 @@ import com.example.mobilepizza.R;
 import com.example.mobilepizza.adapters.CartRecycleAdapter;
 import com.example.mobilepizza.classes.CartItems;
 import com.example.mobilepizza.classes.HistoryItem;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,12 +53,14 @@ public class CartFragment extends Fragment {
 
     ArrayList<CartItems> cartItems;
     RecyclerView cartRecyclerView;
+    CartRecycleAdapter adapter;
 
     ProgressBar progressBar;
     FrameLayout root_cart;
     TextView title;
     Button button;
     RelativeLayout relativeLayout;
+    ImageView imageView;
 
     ValueEventListener valueEventListener;
 
@@ -70,21 +77,22 @@ public class CartFragment extends Fragment {
         title = view.findViewById(R.id.cart_title_text);
         button = view.findViewById(R.id.button);
         relativeLayout = view.findViewById(R.id.relativeLayout);
+        imageView = view.findViewById(R.id.imageView8);
 
         cartRecyclerView = view.findViewById(R.id.cart_list);
         cartItems = new ArrayList<>();
-
-        CartRecycleAdapter adapter = new CartRecycleAdapter(cartItems);
-        cartRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        cartRecyclerView.setAdapter(adapter);
 
         valueEventListener = new ValueEventListener() {
             @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                cartItems.clear();
                 sum = 0;
                 quantity = 0;
+
+                cartItems.clear();
+                adapter = new CartRecycleAdapter(cartItems);
+                cartRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                cartRecyclerView.setAdapter(adapter);
 
                 for (DataSnapshot data : snapshot.getChildren()) {
                     cartItems.add(data.getValue(CartItems.class));
@@ -126,6 +134,41 @@ public class CartFragment extends Fragment {
             }
         };
         
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(getString(R.string.cart_clear));
+                builder.setMessage(getString(R.string.cart_warn));
+
+                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (i == DialogInterface.BUTTON_POSITIVE) {
+                            databaseReference.child("cart").child(user.getUid()).removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Toast.makeText(getContext(), getString(R.string.cart_cleared), Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+                };
+
+                builder.setPositiveButton(getString(R.string.yes), listener);
+                builder.setNegativeButton(getString(R.string.no), listener);
+
+                builder.create().show();
+            }
+        });
+        
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +179,45 @@ public class CartFragment extends Fragment {
         databaseReference.child("cart").child(user.getUid()).addValueEventListener(valueEventListener);
 
         return view;
+    }
+
+    public void getDeliveryAddressDialog(Activity activity, CartRecycleAdapter adapter) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.get_delivery_address);
+
+        EditText editText = dialog.findViewById(R.id.address_edittext_dialog);
+        Button button = dialog.findViewById(R.id.address_dialog_button);
+        ProgressBar progressBar = dialog.findViewById(R.id.progressBar11);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!editText.getText().toString().replace(" ", "").equals("")) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    databaseReference.child("users").child(user.getUid()).child("delivery_address").setValue(editText.getText().toString().trim())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(activity, getString(R.string.add_address_success), Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    makeOrderDialog(activity, adapter);
+                                    dialog.dismiss();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            });
+                } else {
+                    editText.setError(getString(R.string.address_incorrect));
+                }
+            }
+        });
+
+        dialog.show();
     }
 
     @SuppressLint("SetTextI18n")
@@ -149,7 +231,12 @@ public class CartFragment extends Fragment {
         databaseReference.child("users").child(user.getUid()).child("delivery_address").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                address.setText(getString(R.string.profile_address) + ": " + snapshot.getValue().toString());
+                if (!String.valueOf(snapshot.getValue()).equals("null")) {
+                    address.setText(getString(R.string.profile_address) + ": " + snapshot.getValue().toString());
+                } else {
+                    getDeliveryAddressDialog(activity, adapter);
+                    dialog.dismiss();
+                }
 
                 progressBar1.setVisibility(View.GONE);
                 order_root.setVisibility(View.VISIBLE);
@@ -164,8 +251,16 @@ public class CartFragment extends Fragment {
         TextView order_cost = dialog.findViewById(R.id.textView17);
         order_cost.setText(getString(R.string.cost_order) + ": " + sum + "₸");
 
-        Button button = dialog.findViewById(R.id.button2);
+        Button button2 = dialog.findViewById(R.id.button5);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDeliveryAddressDialog(getActivity(), adapter);
+                dialog.dismiss();
+            }
+        });
 
+        Button button = dialog.findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
