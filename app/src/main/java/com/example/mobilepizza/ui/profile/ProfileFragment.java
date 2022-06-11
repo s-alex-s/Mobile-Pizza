@@ -164,27 +164,23 @@ public class ProfileFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!editText.getText().toString().replace(" ", "").equals("")) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    db_ref.child("users").child(currentUser.getUid()).child("user_name").setValue(editText.getText().toString().trim())
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(activity, getString(R.string.add_phone_name_success), Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                } else {
-                    editText.setError(getString(R.string.add_phone_name));
-                }
+                progressBar.setVisibility(View.VISIBLE);
+                db_ref.child("users").child(currentUser.getUid()).child("user_name").setValue(editText.getText().toString().trim())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(activity, getString(R.string.add_phone_name_success), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
 
@@ -203,27 +199,23 @@ public class ProfileFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!editText.getText().toString().replace(" ", "").equals("")) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    db_ref.child("users").child(currentUser.getUid()).child("delivery_address").setValue(editText.getText().toString().trim())
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(activity, getString(R.string.add_address_success), Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                } else {
-                    editText.setError(getString(R.string.address_incorrect));
-                }
+                progressBar.setVisibility(View.VISIBLE);
+                db_ref.child("users").child(currentUser.getUid()).child("delivery_address").setValue(editText.getText().toString().trim())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(activity, getString(R.string.add_address_success), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
 
@@ -242,27 +234,23 @@ public class ProfileFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!editText.getText().toString().replace(" ", "").equals("")) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    db_ref.child("users").child(currentUser.getUid()).child("delivery_address").setValue(editText.getText().toString().trim())
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(activity, getString(R.string.add_address_success), Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                } else {
-                    editText.setError(getString(R.string.address_incorrect));
-                }
+                progressBar.setVisibility(View.VISIBLE);
+                db_ref.child("users").child(currentUser.getUid()).child("delivery_address").setValue(editText.getText().toString().trim())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(activity, getString(R.string.add_address_success), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(activity, getString(R.string.error), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
 
@@ -293,7 +281,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (editText.getText().toString().length() == 10) {
+                if (editText.getText().toString().length() == 10 || editText.getText().toString().isEmpty()) {
                     progressBar.setVisibility(View.VISIBLE);
                     String phone_input = ccp.getSelectedCountryCodeWithPlus() + editText.getText().toString();
                     db_ref.child("users").child(currentUser.getUid()).child("phone_number").setValue(phone_input)
