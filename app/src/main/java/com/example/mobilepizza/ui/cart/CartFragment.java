@@ -234,7 +234,9 @@ public class CartFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!String.valueOf(snapshot.getValue()).equals("null")) {
-                    address.setText(getString(R.string.profile_address) + ": " + snapshot.getValue().toString());
+                    if (!snapshot.getValue().toString().equals("")) {
+                        address.setText(getString(R.string.profile_address) + ": " + snapshot.getValue().toString());
+                    }
                 } else {
                     getDeliveryAddressDialog(activity, adapter);
                     dialog.dismiss();
