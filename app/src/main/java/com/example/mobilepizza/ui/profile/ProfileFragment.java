@@ -283,7 +283,10 @@ public class ProfileFragment extends Fragment {
 
                 if (editText.getText().toString().length() == 10 || editText.getText().toString().isEmpty()) {
                     progressBar.setVisibility(View.VISIBLE);
-                    String phone_input = ccp.getSelectedCountryCodeWithPlus() + editText.getText().toString();
+                    String phone_input = "";
+                    if (!editText.getText().toString().isEmpty()) {
+                        phone_input = ccp.getSelectedCountryCodeWithPlus() + editText.getText().toString();
+                    }
                     db_ref.child("users").child(currentUser.getUid()).child("phone_number").setValue(phone_input)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
