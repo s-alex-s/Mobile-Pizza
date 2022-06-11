@@ -236,6 +236,9 @@ public class CartFragment extends Fragment {
                 if (!String.valueOf(snapshot.getValue()).equals("null")) {
                     if (!snapshot.getValue().toString().equals("")) {
                         address.setText(getString(R.string.profile_address) + ": " + snapshot.getValue().toString());
+                    } else {
+                        getDeliveryAddressDialog(activity, adapter);
+                        dialog.dismiss();
                     }
                 } else {
                     getDeliveryAddressDialog(activity, adapter);
