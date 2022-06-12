@@ -77,4 +77,7 @@
     <string name="cart_warn">Do you really want to empty the cart?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="connection_lost">Internet connection lost</string>
+    <string name="repeat_connection_later">Try again later</string>
+    <string name="repeat_connection">Try again</string>
 </resources>

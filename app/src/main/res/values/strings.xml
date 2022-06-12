@@ -8,6 +8,9 @@
     <string name="quantity">шт.</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="connection_lost">Интернет соединение потеряно</string>
+    <string name="repeat_connection_later">Повторите попытку позже</string>
+    <string name="repeat_connection">Повторить</string>
 
     <!-- Navigation -->
     <string name="food_fragment_title">Меню</string>
