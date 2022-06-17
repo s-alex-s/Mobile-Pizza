@@ -216,16 +216,20 @@ public class FoodActivity extends AppCompatActivity {
 
                     for (DataSnapshot data : snapshot.getChildren()) {
                         if (cartItem.equals(data.getValue(CartItems.class))) {
-                            add = false;
-                            cartItem.setQuantity(data.getValue(CartItems.class).getQuantity() +
-                                    cartItem.getQuantity());
-                            cartItem.setKey(data.getValue(CartItems.class).getKey());
+                            if (data.getValue(CartItems.class).getQuantity() != 50) {
+                                add = false;
+                                cartItem.setQuantity(data.getValue(CartItems.class).getQuantity() +
+                                        cartItem.getQuantity());
+                                cartItem.setKey(data.getValue(CartItems.class).getKey());
 
-                            databaseReference
-                                    .child("cart")
-                                    .child(user.getUid())
-                                    .child(cartItem.getKey())
-                                    .setValue(cartItem);
+                                databaseReference
+                                        .child("cart")
+                                        .child(user.getUid())
+                                        .child(cartItem.getKey())
+                                        .setValue(cartItem);
+                            } else {
+                                add = false;
+                            }
                         }
                     }
 
