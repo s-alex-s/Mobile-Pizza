@@ -1,6 +1,7 @@
 package com.example.mobilepizza.adapters;
 
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +55,14 @@ public class HistoryImagesRecyclerAdapter extends RecyclerView.Adapter<HistoryIm
         reference.child(images.get(position)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(holder.itemView.getContext())
-                        .load(uri)
-                        .into(holder.imageView);
+                try {
+                    Glide.with(holder.itemView.getContext())
+                            .load(uri)
+                            .into(holder.imageView);
+                } catch (IllegalArgumentException e) {
+                    Log.e("HIRA", "IllegalArgumentException");
+                }
+
                 holder.progressBar.setVisibility(View.GONE);
             }
         });

@@ -2,6 +2,7 @@ package com.example.mobilepizza.adapters;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,9 +79,13 @@ public class OrderViewRecyclerAdapter extends RecyclerView.Adapter<OrderViewRecy
         storageReference.child(cartItems.get(position).getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(holder.itemView.getContext())
-                        .load(uri)
-                        .into(holder.imageView);
+                try {
+                    Glide.with(holder.itemView.getContext())
+                            .load(uri)
+                            .into(holder.imageView);
+                } catch (IllegalArgumentException e) {
+                    Log.e("OVRA", "IllegalArgumentException");
+                }
 
                 holder.progressBar.setVisibility(View.GONE);
             }

@@ -257,9 +257,14 @@ public class FoodActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Glide.with(FoodActivity.this)
-                                .load(uri)
-                                .into(imageView);
+                        try {
+                            Glide.with(FoodActivity.this)
+                                    .load(uri)
+                                    .into(imageView);
+                        } catch (IllegalArgumentException e) {
+                            Log.e("FoodActivity", "IllegalArgumentException");
+                        }
+
                         progressBar.setVisibility(View.GONE);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
